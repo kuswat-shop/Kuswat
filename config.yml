@@ -1,0 +1,69 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Where uploaded images (logo, product photos) are stored in the repo
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+site_url: https://YOUR-SITE-NAME.netlify.app
+display_url: https://YOUR-SITE-NAME.netlify.app
+
+locale: "en"
+
+collections:
+  - name: "settings"
+    label: "Shop Settings"
+    description: "Business name, logo and contact / payment numbers shown across the site."
+    files:
+      - file: "content/settings.json"
+        name: "settings"
+        label: "Shop Settings"
+        fields:
+          - { label: "Business Name", name: "business_name", widget: "string" }
+          - { label: "Tagline", name: "tagline", widget: "string", required: false }
+          - { label: "Logo (leave empty to show text logo)", name: "logo", widget: "image", required: false }
+          - { label: "WhatsApp Number (with country code, e.g. 8801XXXXXXXXX)", name: "whatsapp_number", widget: "string" }
+          - { label: "bKash Number", name: "bkash_number", widget: "string" }
+          - { label: "Nagad Number", name: "nagad_number", widget: "string" }
+          - { label: "Facebook Page URL", name: "facebook", widget: "string", required: false, hint: "e.g. https://facebook.com/yourpage" }
+          - { label: "Messenger Link", name: "messenger", widget: "string", required: false, hint: "e.g. https://m.me/yourpage" }
+          - { label: "Contact Email", name: "email", widget: "string", required: false, hint: "e.g. hello@kuswat.com" }
+          - { label: "Instagram URL", name: "instagram", widget: "string", required: false, hint: "e.g. https://instagram.com/yourpage" }
+
+  - name: "categories"
+    label: "Categories"
+    description: "The list shown in the three-dot category menu."
+    files:
+      - file: "content/categories.json"
+        name: "categories"
+        label: "Categories"
+        fields:
+          - label: "Categories"
+            name: "categories"
+            widget: "list"
+            summary: "{{name}}"
+            fields:
+              - { label: "Name", name: "name", widget: "string", hint: "Shown to customers, e.g. Hair Clip" }
+              - { label: "Slug", name: "slug", widget: "string", hint: "No spaces/capitals, e.g. hair-clip" }
+
+  - name: "products"
+    label: "Products"
+    description: "Everything for sale. Add, edit or remove items here."
+    files:
+      - file: "content/products.json"
+        name: "products"
+        label: "Products"
+        fields:
+          - label: "Products"
+            name: "products"
+            widget: "list"
+            summary: "{{name}} — ৳{{price}}"
+            fields:
+              - { label: "ID (unique, no spaces)", name: "id", widget: "string", hint: "e.g. p010 — must be different for every product" }
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Price (৳)", name: "price", widget: "number", value_type: "int" }
+              - { label: "Category Slug", name: "category", widget: "string", hint: "Must match a Slug from the Categories section, e.g. necklace" }
+              - { label: "Photo", name: "image", widget: "image" }
+              - { label: "Badge", name: "badge", widget: "select", options: ["", "New", "Sale"], required: false }
+              - { label: "Description", name: "description", widget: "text", required: false }
